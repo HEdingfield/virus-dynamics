@@ -196,8 +196,8 @@ class ResistantVirus(SimpleVirus):
         clearProb: Maximum clearance probability (a float between 0-1)
 
         resistances: A dictionary of drug names (strings) mapping to the state of this virus particle's resistance
-        (either True or False) to each drug. e.g. {'doxycycline':False, 'penicillium':False}, means that this virus
-        particle is resistant to neither doxycycline nor penicillium.
+        (either True or False) to each drug. e.g. {'oseltamivir':False, 'zanamivir':False}, means that this virus
+        particle is resistant to neither oseltamivir nor zanamivir.
 
         mutProb: Mutation probability for this virus particle (a float). This is the probability of the offspring
         acquiring or losing resistance to a drug.
@@ -249,10 +249,10 @@ class ResistantVirus(SimpleVirus):
         probability 1-mutProb of inheriting that resistance trait from the parent, and probability mutProb of
         switching that resistance trait in the offspring.
 
-        For example, if a virus particle is resistant to doxycycline but not penicillium, and self.mutProb is 0.1,
-        then there is a 10% chance that that the offspring will lose resistance to doxycycline and a 90% chance that
-        the offspring will be resistant to doxycycline. There is also a 10% chance that the offspring will gain
-        resistance to penicillium and a 90% chance that the offspring will not be resistant to penicillium.
+        For example, if a virus particle is resistant to oseltamivir but not zanamivir, and self.mutProb is 0.1,
+        then there is a 10% chance that that the offspring will lose resistance to oseltamivir and a 90% chance that
+        the offspring will be resistant to oseltamivir. There is also a 10% chance that the offspring will gain
+        resistance to zanamivir and a 90% chance that the offspring will not be resistant to zanamivir.
 
         popDensity: the population density (a float), defined as the current virus population divided by the
         maximum population
@@ -322,8 +322,8 @@ class TreatedPatient(Patient):
         """
         Get the population of virus particles resistant to the drugs listed in drugResist.
 
-        drugResist: Which drug resistances to include in the population (a list of strings - e.g. ['doxycycline']
-        or ['doxycycline', 'penicillium'])
+        drugResist: Which drug resistances to include in the population (a list of strings - e.g. ['oseltamivir']
+        or ['oseltamivir', 'zanamivir'])
 
         returns: The population of viruses (an integer) with resistances to all drugs in the drugResist list
         """
@@ -372,9 +372,9 @@ def simulationWithDrug(numViruses, maxPop, maxBirthProb, clearProb, resistances,
     """
     Runs a simulation and plots a graph.
 
-    For each of numTrials trials, instantiates a patient, runs a simulation for 150 timesteps, adds doxycycline, 
+    For each of numTrials trials, instantiates a patient, runs a simulation for 150 timesteps, adds oseltamivir, 
     and runs the simulation for an additional 150 timesteps. At the end plots the average virus population size 
-    (for both the total virus population and the doxycycline-resistant virus population) as a function of time.
+    (for both the total virus population and the oseltamivir-resistant virus population) as a function of time.
 
     numViruses: number of ResistantVirus to create for patient (an integer)
 
@@ -384,7 +384,7 @@ def simulationWithDrug(numViruses, maxPop, maxBirthProb, clearProb, resistances,
 
     clearProb: maximum clearance probability (a float between 0-1)
 
-    resistances: a dictionary of drugs that each ResistantVirus is resistant to (e.g., {'doxycycline': False})
+    resistances: a dictionary of drugs that each ResistantVirus is resistant to (e.g., {'oseltamivir': False})
 
     mutProb: mutation probability for each ResistantVirus particle (a float between 0-1)
 
@@ -392,7 +392,7 @@ def simulationWithDrug(numViruses, maxPop, maxBirthProb, clearProb, resistances,
     """
     numTimeSteps = 300
     drugAdminTime = 150
-    drugToAdmin = 'doxycycline'
+    drugToAdmin = 'oseltamivir'
 
     totalVirusPop = []
     resistantVirusPop = []
@@ -435,6 +435,6 @@ numTrials = 100
 simulationWithoutDrug(numViruses, maxPop, maxBirthProb, clearProb, numTrials)
 
 # Next, simulate drug treatment (starting at time 150) on a virus that can mutate a resistance
-resistances = {'doxycycline': False}
+resistances = {'oseltamivir': False}
 mutProb = 0.005
 simulationWithDrug(numViruses, maxPop, maxBirthProb, clearProb, resistances, mutProb, numTrials)
